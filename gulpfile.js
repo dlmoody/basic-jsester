@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var karma = require('karma').server;
 var jshint = require('gulp-jshint');
+var debug = require('gulp-debug');
 //var benchmark = require('gulp-bench');
 //var bump = require('gulp-bump');
 //var exec = require('child_process').exec;
@@ -9,7 +10,9 @@ var pkg = require('./package.json');
 //var git = require('gulp-git');
 
 gulp.task('lint', function() {
-  return gulp.src('./src')
+
+  return gulp.src('./src/**/*.js')
+    .pipe(debug())
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
@@ -17,7 +20,7 @@ gulp.task('lint', function() {
 gulp.task('test', function(done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
-    singleRun: true
+    singleRun: false
   }, done);
 });
 
