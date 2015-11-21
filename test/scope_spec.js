@@ -118,6 +118,7 @@ describe("Scope", function() {
       scope.$watch(watchFn);
       scope.$digest();
 
+
       watchFn.should.have.been.called;
 
     });
@@ -268,5 +269,35 @@ describe("Scope", function() {
   });
 
 
+  describe('Eval', function() {
+    var scope;
+
+    beforeEach(function() {
+      scope = new Scope();
+    });
+
+    it('executes eval function and returns the result', function(){
+      scope.aValue = 42;
+
+      var result = scope.$eval(function (scope) {
+        return scope.aValue;
+      });
+
+      expect(result).to.be.eql(42);
+
+    });
+
+    it('should pass the second $eval argument straight through', function(){
+      scope.aValue = 42;
+
+      var result = scope.$eval(function(scope, arg){
+        return scope.aValue + arg;
+      }, 2);
+
+      expect(result).to.be.eql(44);
+
+    })
+
+  })
 
 });

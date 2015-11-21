@@ -27,6 +27,12 @@ Scope.prototype.$watch = function(watchFn, listenerFn, valueEq){
 
 };
 
+Scope.prototype.$eval = function (fn, locals) {
+
+  return fn(this, locals);
+
+};
+
 Scope.prototype.$digest = function() {
   var dirty
     , ttl = 10;
@@ -72,7 +78,7 @@ Scope.prototype.$$areEqual = function(newValue, oldValue, valueEq) {
       (typeof newValue === 'number' && typeof oldValue == 'number' &&
       isNaN(newValue) && isNaN(oldValue));
   }
-}
+};
 
 
 function initWatchValue() {}
